@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice Template</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+        .invoice-container {
+            width: 80%;
+            margin: 0 auto;
+            background: #fff;
+            border: 1px solid #ddd;
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        .header h2 {
+            margin: 0;
+            font-size: 24px;
+            color: #333;
+        }
+        .company-details {
+            font-size: 14px;
+            color: #555;
+            text-align: center;
+        }
+        .company-left, .company-center, .company-right {
+            width: 33%;
+        }
+        .company-left {
+            text-align: left;
+        }
+        .company-center {
+            text-align: center;
+        }
+        .company-right {
+            text-align: right;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table th, table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+            font-size: 14px;
+        }
+        .section-label {
+            font-weight: bold;
+            width: 150px;
+        }
+        .remarks {
+            margin-top: 30px;
+        }
+        .remarks p {
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="invoice-container">
+        <!-- Header for Company Details -->
+        <div class="header">
+            <div class="company-details company-left">
+                <strong>
+                    <p>
+                        <span style="font-size: 15px;">Prop :  Mainuddin Mulla</span><br/>
+                        <span style="font-size: 15px;">Contact : 7676501686, 9449378376<br/>
+                        Mateen : 8618582251</span>
+                    </p>
+                </strong>
+            </div>
+            <div class="company-details company-center">
+                <strong>
+                    <p>
+                        <span style="font-size: 30px;">MATHEEN ROADLINES</span><br/>
+                        <span style="font-size: 15px;">TRANSPORT CONTRACTORS<br/>
+                        LORRY SUPPLIER & COMMISSION AGENTS</span>
+                    </p>
+                </strong>
+            </div>
+            <div class="company-details company-right">
+                <strong>
+                    <p>
+                        <span style="font-size: 15px;">Inrahim : 7338060249</span><br/>
+                        <span style="font-size: 15px;">Noor Ahmed : 7022800260<br/>
+                        Shamshoddin : 9036378376</span>
+                    </p>
+                </strong>
+            </div>
+        </div>
+
+        <!-- Invoice Details -->
+        <table>
+            <tr>
+                <td class="section-label">From</td>
+                <td>{{ data.route_from}}</td>
+                <td class="section-label">To</td>
+                <td>{{ data.route_to}}</td>
+            </tr>
+            <tr>
+                <td class="section-label">Date</td>
+                <td>{{ data.date}}</td>
+                <td class="section-label">Vehicle No.</td>
+                <td>{{ data.vehicleNo}}</td>
+            </tr>
+            <tr>
+                <td class="section-label">Rate</td>
+                <td>{{ data.rate}}</td>
+                <td class="section-label">Transport</td>
+                <td>{{ data.transport}}</td>
+            </tr>
+            <tr>
+                <td class="section-label">Tone</td>
+                <td>{{ data.tone}}</td>
+                <td class="section-label">Goods</td>
+                <td>{{ data.goods}}</td>
+            </tr>
+            <tr>
+                <td class="section-label">Total</td>
+                <td>{{ data.total}}</td>
+                <td class="section-label">Advance</td>
+                <td>{{ data.advance}}</td>
+            </tr>
+            <tr>
+                <td class="section-label">Balance</td>
+                <td>{{ data.balance}}</td>
+                <td class="section-label">Remarks</td>
+                <td>{{ data.remark}}</td>
+            </tr>
+        </table>
+
+
+    </div>
+</body>
+</html>

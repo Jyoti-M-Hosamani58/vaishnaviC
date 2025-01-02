@@ -1,0 +1,281 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>MATHEEN TRANSPORT</title>
+    <meta
+      content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
+      name="viewport"
+    />
+    <link
+      rel="icon"
+      href="{% static 'assets/img/kaiadmin/favicon.ico' %}"
+      type="image/x-icon"
+    />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <!-- Fonts and icons -->
+    <script src="{% static 'assets/js/plugin/webfont/webfont.min.js' %}"></script>
+    <script>
+      WebFont.load({
+        google: { families: ["Public Sans:300,400,500,600,700"] },
+        custom: {
+          families: [
+            "Font Awesome 5 Solid",
+            "Font Awesome 5 Regular",
+            "Font Awesome 5 Brands",
+            "simple-line-icons",
+          ],
+          urls: ["{% static 'assets/css/fonts.min.css' %}"],
+        },
+        active: function () {
+          sessionStorage.fonts = true;
+        },
+      });
+    </script>
+
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/plugins.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/kaiadmin.min.css' %}" />
+
+    <!-- CSS Just for demo purpose, don't include it in your project -->
+    <link rel="stylesheet" href="{% static 'assets/css/demo.css' %}" />
+    <!-- jsPDF -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+<!-- jsPDF AutoTable -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.23/jspdf.plugin.autotable.min.js"></script>
+
+  </head>
+  <body>
+  {% include 'nav_bar.html' %}
+          <!-- End Navbar -->
+        </div>
+
+        <div class="container">
+          <div class="page-inner">
+
+      <script>
+    // Function to set the default date to the current date
+function setCurrentDate() {
+    var today = new Date();
+    var day = today.getDate();
+    var month = today.getMonth() + 1; // Months are zero-based
+    var year = today.getFullYear();
+
+    // Format date as YYYY-MM-DD
+    var formattedDate = year + '-' + (month < 10 ? '0' + month : month) + '-' + (day < 10 ? '0' + day : day);
+
+    // Set the value of the date input
+    document.getElementById('fromdate').value = formattedDate;
+    document.getElementById('todate').value = formattedDate;
+}
+
+// Run the function when the page loads
+window.onload = setCurrentDate;
+</script>
+<form method="POST" enctype="multipart/form-data">
+             {% csrf_token %}
+
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="card">
+                  <div class="card-header">
+                    <div class="card-title">Full Load information</div>
+                  </div>
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-md-6 col-lg-4">
+                        <div class="form-group">
+                          <label for="fromdate">From:</label>
+                          <input type="date" class="form-control" id="fromdate" name="fromdate" required>
+                        </div>
+                      </div>
+                      <div class="col-md-6 col-lg-4">
+                        <div class="form-group">
+                          <label for="todate">To:</label>
+                          <input type="date" class="form-control" id="todate" name="todate" required>
+                        </div>
+                      </div>
+
+                      <div class="col-md-6 col-lg-4">
+                        <div class="form-group">
+                          <label for="transport">Transport:</label>
+                    <input type="text" class="form-control" id="transport" name="transport">
+                        </div>
+                      </div>
+
+                      <div class="col-md-6 col-lg-4">
+                        <div class="form-group">
+                          <label for="driver">Driver:</label>
+                    <input type="text" class="form-control" id="driver" name="driver">
+                        </div>
+                      </div>
+
+                      <div class="col-md-6 col-lg-4">
+                        <div class="form-group">
+                          <label for="vehicleno">Vehicle No:</label>
+                    <input type="text" class="form-control" id="vehicleno" name="vehicleno">
+                        </div>
+                      </div>
+
+                    </div>
+                  <div class="card-action">
+                    <button class="btn btn-success">Submit</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+</form>
+            <div class="d-flex mb-3">
+  <button id="export-to-excel" class="btn btn-success ">Export to Excel</button>
+  <button id="export-to-pdf" class="btn btn-danger">Download PDF</button>
+</div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="card">
+                  <div class="card-header">
+                    <h4 class="card-title">Information</h4>
+                  </div>
+                  <div class="card-body">
+                    <div class="table-responsive">
+                      <table
+                        id="basic-datatables"
+                        class="display table table-striped table-hover"
+                      >
+                        <thead>
+                          <tr>
+                            <th>Date</th>
+                            <th>VehicleNo</th>
+                            <th>Driver </th>
+                            <th>Transport</th>
+                            <th>Goods</th>
+                            <th>Rate</th>
+                            <th>Tone</th>
+                            <th>Total</th>
+                            <th>Paid Amt</th>
+                            <th>Halt Charge</th>
+                            <th>Dedication Amt</th>
+                            <th>Dedication Reason</th>
+                            <th>Balance</th>
+                            <th>Remark</th>
+                            <th>Status</th>
+                          </tr>
+                        </thead>
+                        {% for track_id, details in grouped_userdata.items %}
+                        <tbody>
+                          <tr>
+                            <td>{{ details.date }}</td>
+                            <td>{{ details.vehicleNo }}</td>
+                            <td>{{ details.driverName }}</td>
+                            <td>{{ details.transport }}</td>
+                            <td>{{ details.goods }}</td>
+                            <td>{{ details.rate }}</td>
+                            <td>{{ details.tone }}</td>
+                            <td>{{ details.total }}</td>
+                            <td>{{ details.paidAmt }}</td>
+                            <td>{{ details.haltAmt }}</td>
+                            <td>{{ details.dedicationAmt }}</td>
+                            <td>{{ details.dedicationReason }}</td>
+                            <td>{{ details.finalBalance }}</td>
+                            <td>{{ details.remark }}</td>
+                            <td>{{ details.status }}</td>
+                            <td><a href="{% url 'fullLoadEdit' details.id %}" class="btn btn-success">Edit</td>
+                          </tr>
+                        </tbody>
+                        {% endfor %}
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+        </div>
+
+
+      </div>
+<script>
+document.getElementById('export-to-excel').addEventListener('click', function () {
+    var table = document.querySelector('table');  // Target the table you want to export
+    var wb = XLSX.utils.table_to_book(table, {sheet: "Full Load List"});  // Convert table to Excel format
+    var wbout = XLSX.write(wb, {bookType: 'xlsx', type: 'binary'});  // Write to binary format
+
+    // Convert to a buffer to trigger download
+    function s2ab(s) {
+        var buf = new ArrayBuffer(s.length);
+        var view = new Uint8Array(buf);
+        for (var i = 0; i < s.length; i++) {
+            view[i] = s.charCodeAt(i) & 0xFF;
+        }
+        return buf;
+    }
+
+    var filename = "FullLoad_List.xlsx";  // Set file name
+    var blob = new Blob([s2ab(wbout)], {type: "application/octet-stream"});
+    var link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = filename;
+    link.click();
+});
+</script>
+          <script>
+      document.getElementById('export-to-pdf').addEventListener('click', function () {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    // AutoTable plugin to create PDF tables
+    const table = document.querySelector('#basic-datatables');
+
+    doc.autoTable({
+        html: table,       // Use the table element
+        startY: 10,        // Reduced starting Y position (less top margin)
+        theme: 'grid',     // Table theme
+        headStyles: { fillColor: [0, 150, 136], fontSize: 8 }, // Smaller header font
+        styles: {
+            fontSize: 7,       // Smaller font size for all text
+            cellPadding: 1,    // Less padding between cell content and borders
+        },
+        columnStyles: {
+            0: { cellWidth: 10 },  // Adjust specific column widths
+            1: { cellWidth: 15 },
+            2: { cellWidth: 20 },
+            // Add more columns if needed
+        },
+        margin: { top: 5, left: 10, right: 10 }, // Reduced top margin to 5
+        tableWidth: 'auto',   // Fit table size automatically
+    });
+
+    // Save the PDF
+    doc.save('FullLoad_List.pdf');
+});
+</script>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+
+
+      <!-- End Custom template -->
+    </div>
+    <!--   Core JS Files   -->
+    <script src="{% static 'assets/js/core/jquery-3.7.1.min.js' %}"></script>
+    <script src="{% static 'assets/js/core/popper.min.js' %}"></script>
+    <script src="{% static 'assets/js/core/bootstrap.min.js' %}"></script>
+
+    <!-- jQuery Scrollbar -->
+    <script src="{% static 'assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js' %}"></script>
+    <!-- Datatables -->
+    <script src="{% static 'assets/js/plugin/datatables/datatables.min.js' %}"></script>
+    <!-- Kaiadmin JS -->
+    <script src="{% static 'assets/js/kaiadmin.min.js' %}"></script>
+    <!-- Kaiadmin DEMO methods, don't include it in your project! -->
+    <script src="{% static 'assets/js/setting-demo2.js' %}"></script>
+
+  </body>
+</html>

@@ -1,0 +1,319 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Consignment</title>
+    <meta
+      content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
+      name="viewport"
+    />
+    <link
+      rel="icon"
+      href="{% static 'assets/img/kaiadmin/favicon.ico' %}"
+      type="image/x-icon"
+    />
+
+    <!-- Fonts and icons -->
+    <script src="{% static 'assets/js/plugin/webfont/webfont.min.js' %}"></script>
+    <script>
+      WebFont.load({
+        google: { families: ["Public Sans:300,400,500,600,700"] },
+        custom: {
+          families: [
+            "Font Awesome 5 Solid",
+            "Font Awesome 5 Regular",
+            "Font Awesome 5 Brands",
+            "simple-line-icons",
+          ],
+          urls: ["{% static 'assets/css/fonts.min.css' %}"],
+        },
+        active: function () {
+          sessionStorage.fonts = true;
+        },
+      });
+    </script>
+
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/plugins.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/kaiadmin.min.css' %}" />
+
+    <!-- CSS Just for demo purpose, don't include it in your project -->
+    <link rel="stylesheet" href="{% static 'assets/css/demo.css' %}" />
+  </head>
+  <body>
+      <!-- End Sidebar -->
+{% include 'nav_bar.html' %}
+          <!-- End Navbar -->
+        </div><br/> <br/> <br/> <br/>
+      <script>
+    // Function to set the default date to the current date
+function setCurrentDate() {
+    var today = new Date();
+    var day = today.getDate();
+    var month = today.getMonth() + 1; // Months are zero-based
+    var year = today.getFullYear();
+
+    // Format date as YYYY-MM-DD
+    var formattedDate = year + '-' + (month < 10 ? '0' + month : month) + '-' + (day < 10 ? '0' + day : day);
+
+    // Set the value of the date input
+    document.getElementById('date').value = formattedDate;
+}
+
+// Run the function when the page loads
+window.onload = setCurrentDate;
+</script>
+<form method="POST" enctype="multipart/form-data">
+             {% csrf_token %}
+        <div class="container">
+          <div class="page-inner">
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="card">
+                  <div class="card-header">
+                    <div class="card-title">Full Load information</div>
+                  </div>
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-md-6 col-lg-4">
+                        <div class="form-group">
+                          <label for="route_from">From:</label>
+                          <input type="text" class="form-control" id="route_from" name="route_from" required>
+                        </div>
+                      </div>
+                      <div class="col-md-6 col-lg-4">
+                        <div class="form-group">
+                          <label for="route_to">To:</label>
+                          <input type="text" class="form-control" id="route_to" name="route_to" required>
+                        </div>
+                      </div>
+                      <div class="col-md-6 col-lg-4">
+                        <div class="form-group">
+                          <label for="date">Date:</label>
+                    <input type="date" class="form-control" id="date" name="date" required>
+                        </div>
+                      </div>
+                      <div class="col-md-6 col-lg-4">
+                        <div class="form-group">
+                          <label for="rate">Rate:</label>
+                    <input type="text" class="form-control" id="rate" name="rate" required>
+                        </div>
+                      </div>
+                        <div class="col-md-6 col-lg-4">
+                        <div class="form-group">
+                          <label for="tone">Tone:</label>
+                    <input type="text" class="form-control" id="tone" name="tone" required>
+                        </div>
+                      </div>
+                        <div class="col-md-6 col-lg-4">
+                        <div class="form-group">
+                          <label for="total">Total:</label>
+                    <input type="text" class="form-control" id="total" name="total"  required>
+                        </div>
+                      </div>
+                      <div class="col-md-6 col-lg-4">
+                        <div class="form-group">
+                          <label for="vehicleNo">Vehicle No:</label>
+                    <input type="text" class="form-control" id="vehicleNo" name="vehicleNo" required>
+                        </div>
+                      </div>
+                        <div class="col-md-6 col-lg-4">
+                        <div class="form-group">
+                          <label for="driver">Driver Name:</label>
+                    <input type="text" class="form-control" id="driver" name="driver"  required>
+                        </div>
+                        </div>
+
+                        <div class="col-md-6 col-lg-4">
+                        <div class="form-group">
+                          <label for="advance">Advance:</label>
+                    <input type="text" class="form-control" id="advance" name="advance"  required>
+                        </div>
+                      </div>
+                        <div class="col-md-6 col-lg-4">
+                        <div class="form-group">
+                          <label for="transport">Transport:</label>
+                    <input type="text" class="form-control" id="transport" name="transport"  required>
+                        </div>
+                      </div>
+                      <div class="col-md-6 col-lg-4">
+                        <div class="form-group">
+                          <label for="goods">Goods:</label>
+                    <input type="text" class="form-control" id="goods" name="goods"  required>
+                        </div>
+                      </div>
+
+
+
+                        <div class="col-md-6 col-lg-4">
+                        <div class="form-group">
+                          <label for="haltAmt">Halting Amount:</label>
+                    <input type="text" class="form-control" id="haltAmt" name="haltAmt" value="0" required>
+                        </div>
+                      </div>
+                        <div class="col-md-6 col-lg-4">
+                        <div class="form-group">
+                          <label for="remark">Remark:</label>
+                    <input type="text" class="form-control" id="remark" name="remark">
+                        </div>
+                      </div>
+
+                        <div class="col-md-6 col-lg-4">
+                        <div class="form-group">
+                          <label for="dedicationReason">Dedication Reason:</label>
+                    <input type="text" class="form-control" id="dedicationReason" name="dedicationReason">
+                        </div>
+                      </div>
+
+                        <div class="col-md-6 col-lg-4">
+                        <div class="form-group">
+                          <label for="dedicationAmt">Dedication Amount:</label>
+                    <input type="text" class="form-control" id="dedicationAmt" value="0" name="dedicationAmt">
+                        </div>
+                      </div>
+                        <div class="col-md-6 col-lg-4">
+                        <div class="form-group">
+
+                        </div>
+                      </div>
+                        <div class="col-md-6 col-lg-4">
+                        <div class="form-group">
+
+                        </div>
+                      </div>
+
+
+
+                        <div class="col-md-6 col-lg-4">
+                        <div class="form-group">
+                          <label for="balance">Balance:</label>
+                    <input type="text" class="form-control" id="balance" name="balance"  required>
+                        </div>
+                      </div>
+                        <div class="col-md-6 col-lg-4">
+                        <div class="form-group">
+
+                        </div>
+                      </div>
+                        <div class="col-md-6 col-lg-4">
+                        <div class="form-group">
+
+                        </div>
+                      </div>
+
+
+
+                        <div class="col-md-6 col-lg-4">
+                        <div class="form-group">
+                          <label for="finalBalance">Final Balance:</label>
+                    <input type="text" class="form-control" id="finalBalance" name="finalBalance"  required>
+                        </div>
+                      </div>
+                    </div>
+                  <div class="card-action">
+                    <button class="btn btn-success">Submit</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+</form>
+      <script>
+          // Function to update the final balance
+function updateFinalBalance() {
+    // Get the values from dedicationAmt and balance inputs
+    var dedicationAmt = parseFloat(document.getElementById('dedicationAmt').value) || 0;
+    var balance = parseFloat(document.getElementById('balance').value) || 0;
+
+    // Calculate final balance
+    var finalBalance = balance   - dedicationAmt;
+
+    // Update the final balance input
+    document.getElementById('finalBalance').value = finalBalance.toFixed(2); // Adjust decimal places if needed
+}
+
+// Event listeners to trigger the calculation whenever values change
+document.getElementById('dedicationAmt').addEventListener('input', updateFinalBalance);
+document.getElementById('balance').addEventListener('input', updateFinalBalance);
+
+// Initial calculation in case values are already filled
+updateFinalBalance();
+
+      </script>
+<script>
+    // Function to update Total and Balance fields
+function updateFields() {
+    // Get the values from inputs, ensuring we handle cases where the input is empty
+    var rate = parseFloat(document.getElementById('rate').value) || 0;
+    var tone = parseFloat(document.getElementById('tone').value) || 0;
+    var advance = parseFloat(document.getElementById('advance').value) || 0;
+    var haltAmt = parseFloat(document.getElementById('haltAmt').value) || 0;
+
+    // Calculate Total as Rate * Tone
+    var total = rate * tone;
+    document.getElementById('total').value = total.toFixed(2); // Set the total value to two decimal places
+
+    // Calculate Balance as Total - Advance + haltAmt
+    var balance = total - advance + haltAmt;
+    document.getElementById('balance').value = balance.toFixed(2); // Set the balance value to two decimal places
+    document.getElementById('finalBalance').value = balance.toFixed(2); // Set the balance value to two decimal places
+}
+
+// Add event listeners to the fields that affect Total and Balance
+document.getElementById('rate').addEventListener('input', updateFields);
+document.getElementById('tone').addEventListener('input', updateFields);
+document.getElementById('advance').addEventListener('input', updateFields);
+document.getElementById('haltAmt').addEventListener('input', updateFields);
+
+// Initial calculation in case values are already filled
+updateFields();
+
+</script>
+
+      <!-- End Custom template -->
+    </div>
+    <!--   Core JS Files   -->
+    <script src="{% static 'assets/js/core/jquery-3.7.1.min.js' %}"></script>
+    <script src="{% static 'assets/js/core/popper.min.js' %}"></script>
+    <script src="{% static 'assets/js/core/bootstrap.min.js' %}"></script>
+
+    <!-- jQuery Scrollbar -->
+    <script src="{% static 'assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js' %}"></script>
+
+    <!-- Chart JS -->
+    <script src="{% static 'assets/js/plugin/chart.js/chart.min.js' %}"></script>
+
+    <!-- jQuery Sparkline -->
+    <script src="{% static 'assets/js/plugin/jquery.sparkline/jquery.sparkline.min.js' %}"></script>
+
+    <!-- Chart Circle -->
+    <script src="{% static 'assets/js/plugin/chart-circle/circles.min.js' %}"></script>
+
+    <!-- Datatables -->
+    <script src="{% static 'assets/js/plugin/datatables/datatables.min.js' %}"></script>
+
+    <!-- Bootstrap Notify -->
+    <script src="{% static 'assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js' %}"></script>
+
+    <!-- jQuery Vector Maps -->
+    <script src="{% static 'assets/js/plugin/jsvectormap/jsvectormap.min.js' %}"></script>
+    <script src="{% static 'assets/js/plugin/jsvectormap/world.js' %}"></script>
+
+    <!-- Google Maps Plugin -->
+    <script src="{% static 'assets/js/plugin/gmaps/gmaps.js' %}"></script>
+
+    <!-- Sweet Alert -->
+    <script src="{% static 'assets/js/plugin/sweetalert/sweetalert.min.js' %}"></script>
+
+    <!-- Kaiadmin JS -->
+    <script src="{% static 'assets/js/kaiadmin.min.js' %}"></script>
+
+    <!-- Kaiadmin DEMO methods, don't include it in your project! -->
+    <script src="{% static 'assets/js/setting-demo2.js' %}"></script>
+  </body>
+</html>

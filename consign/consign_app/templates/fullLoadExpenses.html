@@ -1,0 +1,193 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Forms - Kaiadmin Bootstrap 5 Admin Dashboard</title>
+    <meta
+      content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
+      name="viewport"
+    />
+    <link
+      rel="icon"
+      href="{% static 'assets/img/kaiadmin/favicon.ico' %}"
+      type="image/x-icon"
+    />
+
+    <!-- Fonts and icons -->
+    <script src="{% static 'assets/js/plugin/webfont/webfont.min.js' %}"></script>
+    <script>
+      WebFont.load({
+        google: { families: ["Public Sans:300,400,500,600,700"] },
+        custom: {
+          families: [
+            "Font Awesome 5 Solid",
+            "Font Awesome 5 Regular",
+            "Font Awesome 5 Brands",
+            "simple-line-icons",
+          ],
+          urls: ["{% static 'assets/css/fonts.min.css' %}"],
+        },
+        active: function () {
+          sessionStorage.fonts = true;
+        },
+      });
+    </script>
+
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/plugins.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/kaiadmin.min.css' %}" />
+
+    <!-- CSS Just for demo purpose, don't include it in your project -->
+    <link rel="stylesheet" href="{% static 'assets/css/demo.css' %}" />
+  </head>
+  <body>
+      <!-- End Sidebar -->
+{% include 'nav_bar.html' %}
+          <!-- End Navbar -->
+        </div><br/> <br/> <br/> <br/>
+      <script>
+    // Function to set the default date to the current date
+function setCurrentDate() {
+    var today = new Date();
+    var day = today.getDate();
+    var month = today.getMonth() + 1; // Months are zero-based
+    var year = today.getFullYear();
+
+    // Format date as YYYY-MM-DD
+    var formattedDate = year + '-' + (month < 10 ? '0' + month : month) + '-' + (day < 10 ? '0' + day : day);
+
+    // Set the value of the date input
+    document.getElementById('date').value = formattedDate;
+}
+
+// Run the function when the page loads
+window.onload = setCurrentDate;
+</script>
+<form method="POST" enctype="multipart/form-data">
+             {% csrf_token %}
+        <div class="container">
+          <div class="page-inner">
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="card">
+                  <div class="card-header">
+                    <div class="card-title"> Expense Information</div>
+                  </div>
+                  <div class="card-body">
+                    <div class="row">
+
+
+                      <div class="col-md-6 col-lg-4">
+                        <div class="form-group">
+                          <label for="date">Date:</label>
+                    <input type="date" class="form-control" id="date" name="date" required>
+                        </div>
+                      </div>
+
+
+                        <div class="col-md-6 col-lg-4">
+                        <div class="form-group">
+                          <label for="amount">Amount:</label>
+                    <input type="text" class="form-control" id="amount" name="amount"  required>
+                        </div>
+                      </div>
+
+                      <div class="col-md-6 col-lg-4">
+                        <div class="form-group">
+                          <label for="name">Particular:</label>
+                    <input type="text" class="form-control" id="name" name="name"  required>
+                        </div>
+                      </div>
+
+                      <div class="col-md-6 col-lg-4">
+                        <div class="form-group">
+                          <label for="reason">Reason:</label>
+                    <input type="text" class="form-control" id="reason" name="reason">
+                        </div>
+                      </div> <div class="col-md-6 col-lg-4">
+                        <div class="form-group">
+                          <label for="desc">Descriprion:</label>
+                    <input type="text" class="form-control" id="desc" name="desc" required>
+                        </div>
+                      </div>
+
+                    </div>
+                  <div class="card-action">
+                    <button class="btn btn-success">Submit</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+</form>
+<script>
+    // Function to update Total and Balance fields
+    function updateFields() {
+        var rate = parseFloat(document.getElementById('rate').value) || 0;
+        var tone = parseFloat(document.getElementById('tone').value) || 0;
+        var advance = parseFloat(document.getElementById('advance').value) || 0;
+        var haltAmt = parseFloat(document.getElementById('haltAmt').value) || 0;
+
+        // Calculate Total as Rate * Tone
+        var total = rate * tone;
+        document.getElementById('total').value = total.toFixed(2);
+
+        // Calculate Balance as Total - Advance + haltAmt
+        var balance = total - advance + haltAmt;
+        document.getElementById('balance').value = balance.toFixed(2);
+    }
+
+    // Add event listeners to the fields that affect Total and Balance
+    document.getElementById('rate').addEventListener('input', updateFields);
+    document.getElementById('tone').addEventListener('input', updateFields);
+    document.getElementById('advance').addEventListener('input', updateFields);
+    document.getElementById('haltAmt').addEventListener('input', updateFields);
+</script>
+
+      <!-- End Custom template -->
+    </div>
+    <!--   Core JS Files   -->
+    <script src="{% static 'assets/js/core/jquery-3.7.1.min.js' %}"></script>
+    <script src="{% static 'assets/js/core/popper.min.js' %}"></script>
+    <script src="{% static 'assets/js/core/bootstrap.min.js' %}"></script>
+
+    <!-- jQuery Scrollbar -->
+    <script src="{% static 'assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js' %}"></script>
+
+    <!-- Chart JS -->
+    <script src="{% static 'assets/js/plugin/chart.js/chart.min.js' %}"></script>
+
+    <!-- jQuery Sparkline -->
+    <script src="{% static 'assets/js/plugin/jquery.sparkline/jquery.sparkline.min.js' %}"></script>
+
+    <!-- Chart Circle -->
+    <script src="{% static 'assets/js/plugin/chart-circle/circles.min.js' %}"></script>
+
+    <!-- Datatables -->
+    <script src="{% static 'assets/js/plugin/datatables/datatables.min.js' %}"></script>
+
+    <!-- Bootstrap Notify -->
+    <script src="{% static 'assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js' %}"></script>
+
+    <!-- jQuery Vector Maps -->
+    <script src="{% static 'assets/js/plugin/jsvectormap/jsvectormap.min.js' %}"></script>
+    <script src="{% static 'assets/js/plugin/jsvectormap/world.js' %}"></script>
+
+    <!-- Google Maps Plugin -->
+    <script src="{% static 'assets/js/plugin/gmaps/gmaps.js' %}"></script>
+
+    <!-- Sweet Alert -->
+    <script src="{% static 'assets/js/plugin/sweetalert/sweetalert.min.js' %}"></script>
+
+    <!-- Kaiadmin JS -->
+    <script src="{% static 'assets/js/kaiadmin.min.js' %}"></script>
+
+    <!-- Kaiadmin DEMO methods, don't include it in your project! -->
+    <script src="{% static 'assets/js/setting-demo2.js' %}"></script>
+  </body>
+</html>
